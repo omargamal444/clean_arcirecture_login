@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:loginproject/config/api/api_const.dart';
-import 'package:loginproject/feature/user/data/data_repo/user_data_repo.dart';
-import 'package:loginproject/feature/user/data/data_source/remote_data_source/sign_up_method.dart';
+import 'package:loginproject/feature/user/data/data_repo/sign_up_repo_impl';
+import 'package:loginproject/feature/user/data/data_source/remote_data_source/sign_up_remote_data_source.dart';
 import 'package:loginproject/feature/user/domain/user_usecase/sign_up_usecase.dart';
 
 import '../../../../config/api/connection_checker.dart';
@@ -37,7 +37,7 @@ class SignUpController extends GetxController {
     final result = await SignUpUseCase(
             repo: SignUpRepoImpl(
                 signUpMethod:
-                    RemoteDataSource(api: DioConsumer(Dio()), data: data),
+                    SignUpRemoteDataSource(api:DioConsumer(Dio()), data: data),
                 connection: Connection()))
         .call();
     _isLoad.value = false;
